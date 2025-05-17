@@ -71,7 +71,7 @@ export default function MarketPriceApp() {
     <div className="max-w-md mx-auto mt-10 space-y-4">
       <Card>
         <CardContent className="p-4 space-y-4">
-          <h2 className="text-xl font-bold">Market Price Lookup</h2>
+          <h2 className="text-xl font-bold">Crab Price reconcilliation</h2>
           <Input
             type="number"
             step="0.01"
