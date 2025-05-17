@@ -48,11 +48,15 @@ export default function MarketPriceApp() {
     }
 
     const availableKeys = Object.keys(priceMap).map(parseFloat);
-    const closestKey = availableKeys.reduce((prev, curr) =>
-      Math.abs(curr - parsed) < Math.abs(prev - parsed) ? curr : prev
-    );
+    const roundedKey = availableKeys.reduce((prev, curr) => {
+      const prevDiff = Math.abs(prev - parsed);
+      const currDiff = Math.abs(curr - parsed);
+      if (currDiff < prevDiff) return curr;
+      if (currDiff === prevDiff) return curr > prev ? curr : prev; // true rounding
+      return prev;
+    });
 
-    const settlement = priceMap[closestKey.toFixed(2)];
+    const settlement = priceMap[roundedKey.toFixed(2)];
     setSettlementPrice(settlement || "");
 
     if (settlement) {
