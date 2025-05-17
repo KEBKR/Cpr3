@@ -47,9 +47,12 @@ export default function MarketPriceApp() {
       return;
     }
 
-    const roundedKey = parsed.toFixed(2).toString();
-    const settlement = priceMap[roundedKey];
+    const availableKeys = Object.keys(priceMap).map(parseFloat);
+    const closestKey = availableKeys.reduce((prev, curr) =>
+      Math.abs(curr - parsed) < Math.abs(prev - parsed) ? curr : prev
+    );
 
+    const settlement = priceMap[closestKey.toFixed(2)];
     setSettlementPrice(settlement || "");
 
     if (settlement) {
